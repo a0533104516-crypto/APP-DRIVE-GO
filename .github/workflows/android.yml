@@ -27,6 +27,9 @@ jobs:
           include ':capacitor-android'
           project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
           EOF
+      - name: Ensure Capacitor app Gradle settings
+        run: |
+          touch android/app/capacitor.build.gradle
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
