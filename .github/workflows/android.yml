@@ -26,7 +26,7 @@ jobs:
           java-version: '17'
       - name: Build APK
         working-directory: android
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug 2>&1 | tee ../gradle.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -34,6 +34,7 @@ jobs:
           path: |
             tsc.log
             next-build.log
+            gradle.log
       - uses: actions/upload-artifact@v4
         if: success()
         with:
