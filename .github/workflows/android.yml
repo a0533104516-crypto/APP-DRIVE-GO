@@ -20,7 +20,6 @@ jobs:
       - name: Next production build
         run: npm run build 2>&1 | tee next-build.log
       - run: npx cap add android
-      - run: npx cap sync android
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
