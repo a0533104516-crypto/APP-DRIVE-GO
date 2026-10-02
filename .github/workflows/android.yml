@@ -19,14 +19,15 @@ jobs:
         run: npx tsc --noEmit 2>&1 | tee tsc.log
       - name: Next production build
         run: npm run build 2>&1 | tee next-build.log
-      - run: npx cap add android
+      - name: Create clean Android wrapper
+        run: rm -rf android && npx cap add android
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
       - name: Build APK
         working-directory: android
-        run: ./gradlew assembleDebug 2>&1 | tee ../gradle.log
+        run: set -o pipefail && ./gradlew assembleDebug 2>&1 | tee ../gradle.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
