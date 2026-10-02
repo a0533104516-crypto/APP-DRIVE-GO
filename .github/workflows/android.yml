@@ -14,7 +14,11 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: npm run build
+      - name: TypeScript diagnostics
+        continue-on-error: true
+        run: npx tsc --noEmit 2>&1 | tee tsc.log
+      - name: Next production build
+        run: npm run build 2>&1 | tee next-build.log
       - run: npx cap add android
       - run: npx cap sync android
       - uses: actions/setup-java@v4
@@ -25,6 +29,14 @@ jobs:
         working-directory: android
         run: ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CarPedia-360-build-logs
+          path: |
+            tsc.log
+            next-build.log
+      - uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: CarPedia-360-debug-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
