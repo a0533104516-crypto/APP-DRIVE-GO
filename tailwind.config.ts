@@ -1,0 +1,1 @@
+import type {Config} from "tailwindcss";const config:Config={content:["./app/**/*.{ts,tsx}"],theme:{extend:{colors:{slateDeep:"#0F172A",carbon:"#1E293B",cyanElectric:"#06B6D4",racing:"#F97316",safety:"#10B981"}}},plugins:[]};export default config;
