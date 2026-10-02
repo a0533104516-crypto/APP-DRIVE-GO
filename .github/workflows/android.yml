@@ -21,6 +21,12 @@ jobs:
         run: npm run build 2>&1 | tee next-build.log
       - name: Create clean Android wrapper
         run: rm -rf android && npx cap add android
+      - name: Ensure Capacitor Gradle settings
+        run: |
+          cat > android/capacitor.settings.gradle <<'EOF'
+          include ':capacitor-android'
+          project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
+          EOF
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
