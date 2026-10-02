@@ -1,0 +1,1 @@
+import type {CapacitorConfig} from "@capacitor/cli";const config:CapacitorConfig={appId:"com.carpedia360.app",appName:"CarPedia 360",webDir:"out",server:{androidScheme:"https"}};export default config;
